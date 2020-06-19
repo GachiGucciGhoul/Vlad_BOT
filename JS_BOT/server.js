@@ -5,13 +5,15 @@ const fs = require('fs');
 const Nightmare = require('nightmare');
 const Iconv = require('iconv').Iconv;
 
+const config = require('./config.json');
+
 const fetchOptions = {
     headers: {
-        cookie: 'kvk-user=%7B%22vkToken%22%3A%22c66e33f9d9df2d44135fafdea4f58f822b5af5c514e0d68b509e8e2a6855b7e38e178064d34fb75518ddf%22%2C%22isGuest%22%3Afalse%2C%22initialized%22%3Afalse%2C%22id%22%3A%22585381466%22%7D'
+        cookie: config.cookie
     }
 };
 
-const voiceChannelID = '623169566641618957';
+const voiceChannelID = config.voiceChannelID;
 let selectedVoiceChannel = null;
 
 client.on('ready', () => {
@@ -59,7 +61,7 @@ fs.watchFile("vkquery.txt", (curr, prev) => {
             .cookies.set({
                 url: 'http://kissvk.com/',
                 name: 'kvk-user',
-                value: '%7B%22vkToken%22%3A%22c66e33f9d9df2d44135fafdea4f58f822b5af5c514e0d68b509e8e2a6855b7e38e178064d34fb75518ddf%22%2C%22isGuest%22%3Afalse%2C%22initialized%22%3Afalse%2C%22id%22%3A%22585381466%22%7D',
+                value: config.cookieNightmare,
             })
             .goto(`http://kissvk.com/?search=${query}`)
             .wait(myMusicButton)
